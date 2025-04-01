@@ -1,10 +1,8 @@
 import createError from 'http-errors';
 import express from 'express';
 import cors from 'cors';
-import dotenv from 'dotenv';
 
-dotenv.config();
-
+import conf from './conf.js';
 
 const app = express();
 
@@ -30,4 +28,8 @@ app.use(function(err, req, res, next) {
     // render the error page
     res.status(err.status || 500);
     res.render('error');
+});
+
+app.listen(conf.express.port, ()=>{
+    console.log("Express hoisted");
 });

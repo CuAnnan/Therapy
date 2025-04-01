@@ -1,4 +1,7 @@
 import mysql from 'mysql';
+import conf from '../conf.js';
+
+
 
 class Controller
 {
@@ -7,23 +10,13 @@ class Controller
     static inTransaction;
 
     static {
-        this.db = mysql.createConnection({
-            host: process.env.DB_HOST,
-            user: process.env.DB_USER,
-            password: process.env.DB_PASSWORD,
-            database: process.env.DB_NAME
-        });
+        this.db = mysql.createConnection(conf.db);
         this.db.connect();
     }
 
     static getInstance()
     {
         throw new Error("getInstance method not implemented.");
-    }
-
-    get db()
-    {
-        return Controller.db;
     }
 
     async query(sqlStatement, fields)

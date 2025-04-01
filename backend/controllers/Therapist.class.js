@@ -11,7 +11,10 @@ class TherapistController extends Controller
 
     async getAllTherapists(req, res)
     {
-
+        this.query("SELECT * FROM therapist")
+            .then((data)=>{
+                res.json(data);
+            });
     }
 
     static getInstance()
