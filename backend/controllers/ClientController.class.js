@@ -10,6 +10,10 @@ class ClientController extends Controller
             "SELECT * from client"
         ).then((query) => {
             res.json(query.results)
+        }).catch((err)=>{
+            console.error(err);
+            res.status(500);
+            res.json({error:"Query string failed"});
         });
     }
 
@@ -20,6 +24,10 @@ class ClientController extends Controller
             [req.params.idClient, req.params.name]
         ).then((query) => {
            res.json(query.results[0])
+        }).catch((err)=>{
+            console.error(err);
+            res.status(500);
+            res.json({error:"Query string failed"});
         });
     }
 
@@ -30,6 +38,10 @@ class ClientController extends Controller
             [req.body.name, req.body.email, req.body.phoneNumber]
         ).then((query) => {
             res.json(query.results[0]);
+        }).catch((err)=>{
+            console.error(err);
+            res.status(500);
+            res.json({error:"Query string failed"});
         });
     }
 
@@ -59,6 +71,10 @@ class ClientController extends Controller
             updateFields
         ).then((query)=>{
             res.json(query.results);
+        }).catch((err)=>{
+            console.error(err);
+            res.status(500);
+            res.json({error:"Query string failed"});
         });
     }
 
@@ -69,6 +85,10 @@ class ClientController extends Controller
             [req.params.idClient]
         ).then((query)=>{
             res.json(query.results);
+        }).catch((err)=>{
+            console.error(err);
+            res.status(500);
+            res.json({error:"Query string failed"});
         });
     }
 
