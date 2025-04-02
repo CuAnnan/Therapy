@@ -60,7 +60,7 @@ class TherapistController extends Controller
         }
 
         this.query(
-            "UPDATE therapist SET "+updateSQL.join(" ")+" WHERE id=?",
+            "UPDATE therapist SET "+updateSQL.join(" ")+" WHERE idTherapist=?",
             updateFields
         ).then((query)=>{
            res.json(query.results[0]);
