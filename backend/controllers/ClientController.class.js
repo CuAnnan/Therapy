@@ -55,20 +55,20 @@ class ClientController extends Controller
         }
 
         this.query(
-            "UPDATE client SET "+updateSQL.join(" ")+" WHERE idClient=?",
+            "UPDATE client SET "+updateSQL.join(", ")+" WHERE idClient=?",
             updateFields
         ).then((query)=>{
-            res.json(query.results[0]);
+            res.json(query.results);
         });
     }
 
     deleteClient(req, res)
     {
         this.query(
-            "DELETE FROM client WHERE id = ?",
+            "DELETE FROM client WHERE idClient = ?",
             [req.params.idClient]
         ).then((query)=>{
-            res.json(query.results[0]);
+            res.json(query.results);
         });
     }
 

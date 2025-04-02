@@ -9,6 +9,10 @@ class TherapistController extends Controller
         this.query("SELECT * FROM therapist")
             .then((query)=>{
                 res.json(query.results);
+            }).catch((err)=>{
+                console.error(err);
+                res.status(500);
+                res.json({error:"Query string failed"});
             });
     }
 
@@ -19,11 +23,16 @@ class TherapistController extends Controller
             [req.params.idTherapist, req.params.name]
         ).then((query)=>{
             res.json(query.results[0]);
+        }).catch((err)=>{
+            console.error(err);
+            res.status(500);
+            res.json({error:"Query string failed"});
         });
     }
 
     async addTherapist(req, res)
     {
+        console.log(req.body);
         this.query(
             "INSERT INTO therapist " +
                             "(title, name, email, location, yearsOfPractice, availability) " +
@@ -34,7 +43,11 @@ class TherapistController extends Controller
                             req.body.location, req.body.yearsOfPractice, req.body.availability
                         ],
         ).then((query)=>{
-            res.json(query.results[0]);
+            res.json(query.results);
+        }).catch((err)=>{
+            console.error(err);
+            res.status(500);
+            res.json({error:"Query string failed"});
         });
     }
 
@@ -43,6 +56,7 @@ class TherapistController extends Controller
         let fields = ["title", "name", "email", "location", "yearsOfPractice", "availability"];
         let updateSQL = [];
         let updateFields = [];
+
         for(let field of fields)
         {
             if(req.body[field])
@@ -60,20 +74,28 @@ class TherapistController extends Controller
         }
 
         this.query(
-            "UPDATE therapist SET "+updateSQL.join(" ")+" WHERE idTherapist=?",
+            "UPDATE therapist SET "+updateSQL.join(", ")+" WHERE idTherapist=?",
             updateFields
         ).then((query)=>{
-           res.json(query.results[0]);
+           res.json(query.results);
+        }).catch((err)=>{
+            console.log(err);
+            res.status(500);
+            res.json({error:"Query string failed"});
         });
     }
 
     async deleteTherapist(req, res)
     {
         this.query(
-            "DELETE FROM therapist WHERE id = ?",
+            "DELETE FROM therapist WHERE idTherapist = ?",
             [req.params.idTherapist]
         ).then((query)=>{
-            res.json(query.results[0]);
+            res.json(query.results);
+        }).catch((err)=>{
+            console.error(err);
+            res.status(500);
+            res.json({error:"Query string failed"});
         });
     }
 

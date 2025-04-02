@@ -19,7 +19,7 @@ class Controller
         throw new Error("getInstance method not implemented.");
     }
 
-    async query(sqlStatement, fields)
+    query(sqlStatement, fields)
     {
         return new Promise((resolve, reject)=>{
             let stmt = Controller.db.query(sqlStatement, fields, (err, results)=>{
@@ -32,6 +32,7 @@ class Controller
 
                 if(err)
                 {
+                    console.log("This is the problem");
                     reject(err);
                 }
                 if(results)
