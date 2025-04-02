@@ -50,7 +50,7 @@ class ClientController extends Controller
         if(!req.body.idClient || updateSQL.length === 0)
         {
             res.status(500);
-            res.json({error:"Malformed therapist"});
+            res.json({error:"Malformed client"});
             return;
         }
 
@@ -65,8 +65,8 @@ class ClientController extends Controller
     deleteClient(req, res)
     {
         this.query(
-            "DELETE FROM thereapist WHERE id = ?",
-            [req.params.idTherapist]
+            "DELETE FROM client WHERE id = ?",
+            [req.params.idClient]
         ).then((query)=>{
             res.json(query.results[0]);
         });
