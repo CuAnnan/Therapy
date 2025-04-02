@@ -26,8 +26,8 @@ class ClientController extends Controller
     addClient(req, res)
     {
         this.query(
-            "INSERT INTO client (name, email, phoneNumber, frequency) VALUES (?, ?, ?, ?)",
-            [req.body.name, req.body.email, req.body.phoneNumber, req.body.frequency]
+            "INSERT INTO client (name, email, phoneNumber) VALUES (?, ?, ?)",
+            [req.body.name, req.body.email, req.body.phoneNumber]
         ).then((query) => {
             res.json(query.results[0]);
         });
@@ -35,7 +35,7 @@ class ClientController extends Controller
 
     updateClient(req, res)
     {
-        let fields = ["name", "email", "phoneNumber", "frequency"];
+        let fields = ["name", "email", "phoneNumber"];
         let updateSQL = [];
         let updateFields = [];
         for(let field of fields)
