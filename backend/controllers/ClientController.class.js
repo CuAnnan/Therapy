@@ -64,7 +64,12 @@ class ClientController extends Controller
 
     deleteClient(req, res)
     {
-
+        this.query(
+            "DELETE FROM thereapist WHERE id = ?",
+            [req.params.idTherapist]
+        ).then((query)=>{
+            res.json(query.results[0]);
+        });
     }
 
     static getInstance()

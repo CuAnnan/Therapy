@@ -70,7 +70,7 @@ class TherapistController extends Controller
     async deleteTherapist(req, res)
     {
         this.query(
-            "DELETE FROM thereapist WHERE id = ?",
+            "DELETE FROM therapist WHERE id = ?",
             [req.params.idTherapist]
         ).then((query)=>{
             res.json(query.results[0]);
