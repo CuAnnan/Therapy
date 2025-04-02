@@ -4,11 +4,6 @@ class TherapistController extends Controller
 {
     static instance;
 
-    constructor()
-    {
-        super();
-    }
-
     async getAllTherapists(req, res)
     {
         this.query("SELECT * FROM therapist")
@@ -84,11 +79,10 @@ class TherapistController extends Controller
 
     static getInstance()
     {
-        if(this.instance)
+        if(!this.instance)
         {
-            return this.instance;
+            this.instance = new TherapistController();
         }
-        this.instance = new TherapistController();
         return this.instance;
     }
 }

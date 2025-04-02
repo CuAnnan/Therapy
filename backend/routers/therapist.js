@@ -1,7 +1,7 @@
 import TherapistController from "../controllers/TherapistController.class.js";
 import express from 'express';
-const router = express.Router();
 
+const router = express.Router();
 const controller = TherapistController.getInstance();
 
 router.get('/', (req, res, next)=>{
