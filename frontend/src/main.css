@@ -3,7 +3,7 @@
     background-color: #EFEFEF;
 }
 
-.row:first-child
+.firstRow
 {
     font-weight:bold;
 }
