@@ -16,4 +16,8 @@ router.delete('/:idSession', (req, res, next)=>{
     controller.deleteSession(req, res).catch((err) => Promise.reject(next()));
 });
 
+router.patch("/", (req, res, next)=>{
+    controller.updateSession(req, res).catch((err) => Promise.reject(next()));
+});
+
 export default router;
