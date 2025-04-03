@@ -8,7 +8,7 @@ router.get('/', (req, res, next)=>{
     controller.getAllClients(req, res).catch(next);
 });
 
-router.get('/:name/:idTherapist', (req, res, next)=>{
+router.get('/:name/:idClient', (req, res, next)=>{
     controller.getClientById(req, res).catch(next);
 });
 
@@ -20,7 +20,7 @@ router.patch('/', (req, res, next)=>{
     controller.updateClient(req, res).catch(next);
 });
 
-router.delete('/:idTherapist', (req, res, next)=>{
+router.delete('/:idClient', (req, res, next)=>{
     controller.deleteClient(req, res).catch(next);
 });
 

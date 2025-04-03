@@ -18,6 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/therapists', therapistRouter);
+app.use('/therapist', therapistRouter);
+app.use('/clients', clientRouter);
 app.use('/client', clientRouter);
 
 app.set("port", port);

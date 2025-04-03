@@ -4,7 +4,7 @@ class ClientController extends Controller
 {
     static instance;
 
-    getAllClients(req, res)
+    async getAllClients(req, res)
     {
         this.query(
             "SELECT * from client"
@@ -17,7 +17,7 @@ class ClientController extends Controller
         });
     }
 
-    getClientById(req, res)
+    async getClientById(req, res)
     {
         this.query(
             "SELECT * FROM client WHERE idClient = ? AND name = ?",
@@ -31,13 +31,13 @@ class ClientController extends Controller
         });
     }
 
-    addClient(req, res)
+    async addClient(req, res)
     {
         this.query(
             "INSERT INTO client (name, email, phoneNumber) VALUES (?, ?, ?)",
             [req.body.name, req.body.email, req.body.phoneNumber]
         ).then((query) => {
-            res.json(query.results[0]);
+            res.json(<query className="results"></query>);
         }).catch((err)=>{
             console.error(err);
             res.status(500);
@@ -45,7 +45,7 @@ class ClientController extends Controller
         });
     }
 
-    updateClient(req, res)
+    async updateClient(req, res)
     {
         let fields = ["name", "email", "phoneNumber"];
         let updateSQL = [];
@@ -78,7 +78,7 @@ class ClientController extends Controller
         });
     }
 
-    deleteClient(req, res)
+    async deleteClient(req, res)
     {
         this.query(
             "DELETE FROM client WHERE idClient = ?",
