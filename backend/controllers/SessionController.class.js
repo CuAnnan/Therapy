@@ -54,6 +54,7 @@ class SessionController extends Controller
                 updateFields.push(req.body[field]);
             }
         }
+        updateFields.push(req.body.idSession);
 
         this.query(
             "UPDATE sessions SET "+updateSQL.join(", ")+" WHERE idSessions=?",
