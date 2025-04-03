@@ -1,0 +1,9 @@
+.row:nth-child(even)
+{
+    background-color: #EFEFEF;
+}
+
+.row:first-child
+{
+    font-weight:bold;
+}
