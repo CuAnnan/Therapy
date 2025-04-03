@@ -13,9 +13,7 @@ router.get('/:name/:idTherapist', (req, res, next)=>{
 });
 
 router.post('/', (req, res, next)=>{
-   controller.addTherapist(req, res).catch(((err) =>{
-      Promise.reject(next());
-   }));
+   controller.addTherapist(req, res).catch(((err) =>Promise.reject(next())));
 });
 
 router.patch('/', (req, res, next)=>{

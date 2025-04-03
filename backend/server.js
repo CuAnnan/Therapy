@@ -1,4 +1,3 @@
-import createError from 'http-errors';
 import express from 'express';
 import cors from 'cors';
 import http from 'http';
@@ -7,8 +6,6 @@ import conf from './conf.js';
 
 const port = conf.express.port;
 
-import therapistRouter from './routers/therapist.js';
-import clientRouter from './routers/client.js';
 
 const app = express();
 
@@ -17,10 +14,16 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+import therapistRouter from './routers/therapist.js';
+import clientRouter from './routers/client.js';
+import sessionRouter from './routers/session.js';
+
 app.use('/therapists', therapistRouter);
 app.use('/therapist', therapistRouter);
 app.use('/clients', clientRouter);
 app.use('/client', clientRouter);
+app.use('/session', sessionRouter);
+app.use('/sessions', sessionRouter);
 
 app.set("port", port);
 

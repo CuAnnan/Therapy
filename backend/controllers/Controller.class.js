@@ -56,5 +56,12 @@ class Controller
         await this.query("COMMIT");
     }
 
+    sendErrorResponse(res, message="Query string failed")
+    {
+        console.error(err);
+        res.status(500);
+        res.json({error:message});
+    }
+
 }
 export default Controller;

@@ -4,18 +4,34 @@ class SessionController extends Controller
 {
     static instance;
 
-    async getAllSessions()
+    async getAllSessions(req, res)
     {
         this.query(
             "SELECT * FROM session"
         ).then((query)=>{
             res.json(query.results);
         })
-        .catch((err)=>{
-            console.error(err);
-            res.status(500);
-            res.json({error:"Query string failed"});
-        });
+        .catch(this.sendErrorResponse);
+    }
+
+    async addSession(req, res)
+    {
+        this.query(
+            "INSERT INTO session (idClient, idTherapist, date, length, frequency) VALUES (?, ?, ?, ?, ?)",
+            [req.body.idClient, req.body.idTherapist, new Date(req.body.date), req.body.length, req.body.frequency]
+        ).then((query)=>{
+            res.json(query.results);
+        }).catch(this.sendErrorResponse);
+    }
+
+    async deleteSession(req, res)
+    {
+        this.query(
+            "DELETE FROM session WHERE idSession = ?",
+            [req.params.idSession]
+        ).then((query)=>{
+            res.json(query.results);
+        }).catch(this.sendErrorResponse);
     }
 
     async getSessionById(req, res)

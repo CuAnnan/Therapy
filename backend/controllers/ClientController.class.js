@@ -10,11 +10,7 @@ class ClientController extends Controller
             "SELECT * from client"
         ).then((query) => {
             res.json(query.results)
-        }).catch((err)=>{
-            console.error(err);
-            res.status(500);
-            res.json({error:"Query string failed"});
-        });
+        }).catch(this.sendErrorResponse);
     }
 
     async getClientById(req, res)
@@ -24,11 +20,7 @@ class ClientController extends Controller
             [req.params.idClient, req.params.name]
         ).then((query) => {
            res.json(query.results[0])
-        }).catch((err)=>{
-            console.error(err);
-            res.status(500);
-            res.json({error:"Query string failed"});
-        });
+        }).catch(this.sendErrorResponse);
     }
 
     async addClient(req, res)
@@ -37,12 +29,8 @@ class ClientController extends Controller
             "INSERT INTO client (name, email, phoneNumber) VALUES (?, ?, ?)",
             [req.body.name, req.body.email, req.body.phoneNumber]
         ).then((query) => {
-            res.json(<query className="results"></query>);
-        }).catch((err)=>{
-            console.error(err);
-            res.status(500);
-            res.json({error:"Query string failed"});
-        });
+            res.json(query.results);
+        }).catch(this.sendErrorResponse);
     }
 
     async updateClient(req, res)
@@ -61,8 +49,7 @@ class ClientController extends Controller
         updateFields.push(req.body.idClient);
         if(!req.body.idClient || updateSQL.length === 0)
         {
-            res.status(500);
-            res.json({error:"Malformed client"});
+            this.sendErrorResponse(res, "Malformed client");
             return;
         }
 
@@ -71,11 +58,7 @@ class ClientController extends Controller
             updateFields
         ).then((query)=>{
             res.json(query.results);
-        }).catch((err)=>{
-            console.error(err);
-            res.status(500);
-            res.json({error:"Query string failed"});
-        });
+        }).catch(this.sendErrorResponse);
     }
 
     async deleteClient(req, res)
@@ -85,11 +68,7 @@ class ClientController extends Controller
             [req.params.idClient]
         ).then((query)=>{
             res.json(query.results);
-        }).catch((err)=>{
-            console.error(err);
-            res.status(500);
-            res.json({error:"Query string failed"});
-        });
+        }).catch(this.sendErrorResponse);
     }
 
     static getInstance()

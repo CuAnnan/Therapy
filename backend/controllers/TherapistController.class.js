@@ -9,11 +9,7 @@ class TherapistController extends Controller
         this.query("SELECT * FROM therapist")
             .then((query)=>{
                 res.json(query.results);
-            }).catch((err)=>{
-                console.error(err);
-                res.status(500);
-                res.json({error:"Query string failed"});
-            });
+            }).catch(this.sendErrorResponse);
     }
 
     async getTherapistById(req, res)
@@ -23,11 +19,7 @@ class TherapistController extends Controller
             [req.params.idTherapist, req.params.name]
         ).then((query)=>{
             res.json(query.results[0]);
-        }).catch((err)=>{
-            console.error(err);
-            res.status(500);
-            res.json({error:"Query string failed"});
-        });
+        }).catch(this.sendErrorResponse);
     }
 
     async addTherapist(req, res)
@@ -44,11 +36,7 @@ class TherapistController extends Controller
                         ],
         ).then((query)=>{
             res.json(query.results);
-        }).catch((err)=>{
-            console.error(err);
-            res.status(500);
-            res.json({error:"Query string failed"});
-        });
+        }).catch(this.sendErrorResponse);
     }
 
     async updateTherapist(req, res)
@@ -68,8 +56,7 @@ class TherapistController extends Controller
         updateFields.push(req.body.idTherapist);
         if(!req.body.idTherapist || updateSQL.length === 0)
         {
-            res.status(500);
-            res.json({error:"Malformed therapist"});
+            this.sendErrorResponse(res, "Malformed therapist");
             return;
         }
 
@@ -78,11 +65,7 @@ class TherapistController extends Controller
             updateFields
         ).then((query)=>{
            res.json(query.results);
-        }).catch((err)=>{
-            console.log(err);
-            res.status(500);
-            res.json({error:"Query string failed"});
-        });
+        }).catch(this.sendErrorResponse);
     }
 
     async deleteTherapist(req, res)
@@ -92,11 +75,7 @@ class TherapistController extends Controller
             [req.params.idTherapist]
         ).then((query)=>{
             res.json(query.results);
-        }).catch((err)=>{
-            console.error(err);
-            res.status(500);
-            res.json({error:"Query string failed"});
-        });
+        }).catch(this.sendErrorResponse);
     }
 
     static getInstance()
