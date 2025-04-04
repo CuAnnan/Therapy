@@ -3,9 +3,22 @@ import {Button, Modal, Row, Col, Form} from 'react-bootstrap';
 
 import FormField from './FormField.jsx';
 
-function SessionModal({modal, setModal, isNewSession, sessionToEdit, setSessionToEdit, sessions, setSessions})
+function SessionModal({modal, setModal, isNewSession, sessionToEdit, setSessionToEdit, sessions, setSessions, therapists, clients})
 {
     const handleClose = () => setModal(false);
+    const clientOptions = [];
+
+    const mapToOptions = (map, field)=>{
+        const options = [];
+        for(const[id, name] of Object.entries(map))
+        {
+            options.push(
+                <option key={id} value={id}>{name}</option>
+            );
+        }
+        return options;
+    };
+
 
     return (
         <>
@@ -17,10 +30,13 @@ function SessionModal({modal, setModal, isNewSession, sessionToEdit, setSessionT
                     <Form>
                         <Form.Group as={Row} className="mb-3" controlId="formHorizontalName">
                             <Form.Label column={true} sm={2}>
-                                Name
+                                Client
                             </Form.Label>
                             <Col sm={10}>
-                                <FormField fieldName="name" object={sessionToEdit}/>
+                                <Form.Select aria-label="Default select example" defaultValue={sessionToEdit.idClient}>
+                                    <option>--Choose one--</option>
+                                    {mapToOptions(clients, "idClient")}
+                                </Form.Select>
                             </Col>
                         </Form.Group>
                     </Form>
@@ -60,6 +76,8 @@ function Sessions()
     const [modal, setModal] = useState(false);
     const [isNewSession, setIsNewSession] = useState(false);
     const [sessionToEdit, setSessionToEdit] = useState({});
+    const [therapists, setTherapists] = useState([]);
+    const [clients, setClients] = useState([]);
 
 
     useEffect(()=>{
@@ -69,6 +87,16 @@ function Sessions()
             }).then((data)=>{
                 setSessions(data);
             });
+        fetch("http://localhost:3000/clients/getIdsAndNames")
+            .then((res)=>res.json())
+            .then((data)=>{
+                setClients(data);
+            });
+        fetch("http://localhost:3000/therapists/getIdsAndNames")
+            .then((res)=>res.json())
+            .then((data)=>{
+                setTherapists(data);
+            });
     },[]);
 
     const sessionRows = [];
@@ -77,7 +105,7 @@ function Sessions()
     });
 
     return(<>
-        <SessionModal modal={modal} setModal={setModal} isNewSession={isNewSession} sessionToEdit={sessionToEdit} setSessionToEdit={setSessionToEdit} session={sessions} setSessions={setSessions}/>
+        <SessionModal modal={modal} setModal={setModal} isNewSession={isNewSession} sessionToEdit={sessionToEdit} setSessionToEdit={setSessionToEdit} session={sessions} setSessions={setSessions} therapists={therapists} clients={clients} />
         <h2 className="text-center">Sessions</h2>
         <div className="container text-center">
         <Button variant="primary" onClick={()=>{

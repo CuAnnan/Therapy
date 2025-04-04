@@ -20,6 +20,10 @@ router.patch('/', async (req, res, next)=>{
    await controller.updateTherapist(req, res);
 });
 
+router.get('/getIdsAndNames', async (req, res, next)=>{
+   await controller.getTherapistIdAndNames(req, res);
+});
+
 router.delete('/:idTherapist', async (req, res, next)=>{
    await controller.deleteTherapist(req, res);
 });
