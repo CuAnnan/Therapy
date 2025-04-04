@@ -81,6 +81,22 @@ class ClientController extends Controller
         });
     }
 
+    async getClientIdsAndNames(req, res)
+    {
+        this.query(
+            "SELECT idClient, name FROM client"
+        ).then((query)=>{
+            let map = {};
+            for(let result of query.results)
+            {
+                map[result.idClient] = result.name;
+            }
+            res.json(map);
+        }).catch((e)=>{
+            this.sendErrorResponse(res, e.message);
+        });
+    }
+
     static getInstance()
     {
         if(!this.instance)

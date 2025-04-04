@@ -20,6 +20,10 @@ router.patch('/', async (req, res, next)=>{
     await controller.updateClient(req, res);
 });
 
+router.get('/getIdsAndNames', async (req, res, next)=>{
+   await controller.getClientIdsAndNames(req, res);
+});
+
 router.delete('/:idClient', async (req, res, next)=>{
     await controller.deleteClient(req, res);
 });
