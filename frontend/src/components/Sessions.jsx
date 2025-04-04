@@ -3,10 +3,18 @@ import {Button, Modal, Row, Col, Form} from 'react-bootstrap';
 
 import FormField from './FormField.jsx';
 
-function SessionRow()
+function SessionRow({session, sessionToEdit, modal, setModal, setIsNewSession, setSessionToEdit, setSessions})
 {
-    return (<Row>
+    let date = new Date(session.date);
+    console.log(date);
 
+    return (<Row>
+        <Col>{session.client}</Col>
+        <Col>{session.therapist}</Col>
+        <Col>{date.toLocaleString()}</Col>
+        <Col>{session.length}</Col>
+        <Col>{session.frequency}</Col>
+        <Col xs="1"></Col>
     </Row>)
 }
 
@@ -30,7 +38,7 @@ function Sessions()
 
     const sessionRows = [];
     sessions.forEach(session => {
-        sessionRows.push(<SessionRow session={session} sessionToEdit={sessionToEdit} modal={modal} setModal={setModal} setIsNewSession={setIsNewSession} setSessionToEdit={setSessionToEdit} setSessions={setSessions} />);
+        sessionRows.push(<SessionRow key={session.idSession} session={session} sessionToEdit={sessionToEdit} modal={modal} setModal={setModal} setIsNewSession={setIsNewSession} setSessionToEdit={setSessionToEdit} setSessions={setSessions} />);
     });
 
     return(<><h2 className="text-center">Sessions</h2>
@@ -39,8 +47,6 @@ function Sessions()
             Add new session
         </Button>
     </div>
-    <div className="container text-center">
-    </div>
     <div className="container">
         <Row className="firstRow">
             <Col>Client</Col>
@@ -48,6 +54,7 @@ function Sessions()
             <Col>Date</Col>
             <Col>Length</Col>
             <Col>Frequency</Col>
+            <Col xs="1"></Col>
         </Row>
 
         {sessionRows}

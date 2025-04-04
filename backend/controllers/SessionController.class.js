@@ -7,7 +7,13 @@ class SessionController extends Controller
     async getAllSessions(req, res)
     {
         this.query(
-            "SELECT * FROM session"
+            "SELECT " +
+                            "s.idSession, s.date, s.length, s.frequency," +
+                            "c.idClient, c.name as client, t.idTherapist, t.name as therapist " +
+                        "FROM " +
+                            "session s " +
+                            "LEFT JOIN client c USING (idClient) " +
+                            "LEFT JOIN therapist t USING (idTherapist)"
         ).then((query)=>{
             res.json(query.results);
         })

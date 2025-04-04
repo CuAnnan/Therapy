@@ -7,7 +7,7 @@ class ClientController extends Controller
     async getAllClients(req, res)
     {
         this.query(
-            "SELECT * from client"
+            "SELECT * FROM client"
         ).then((query) => {
             res.json(query.results)
         }).catch((e)=>{
