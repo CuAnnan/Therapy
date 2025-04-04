@@ -29,10 +29,10 @@ class Controller
                     results:[],
                     hasResults:false
                 }
-
                 if(err)
                 {
                     console.log("This is the problem");
+                    console.log(err);
                     reject(err);
                 }
                 if(results)

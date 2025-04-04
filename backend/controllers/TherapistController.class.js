@@ -24,7 +24,7 @@ class TherapistController extends Controller
 
     async addTherapist(req, res)
     {
-        console.log(req.body);
+
         this.query(
             "INSERT INTO therapist " +
                             "(title, name, email, location, yearsOfPractice, availability) " +

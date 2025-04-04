@@ -5,7 +5,7 @@ function TherapistField({therapist, fieldName, isNumber})
 {
     const [field, setField] = useState(therapist?therapist[fieldName]:"");
 
-    return (<Form.Control value={field} onChange={(e)=>{
+    return (<Form.Control required value={field} onChange={(e)=>{
         let value = e.target.value;
         if(isNumber)
         {
@@ -17,7 +17,7 @@ function TherapistField({therapist, fieldName, isNumber})
 }
 
 
-function NewTherapistModal({modal, setModal, isNewTherapist, therapistToEdit, setTherapistToEdit})
+function NewTherapistModal({modal, setModal, isNewTherapist, therapistToEdit, setTherapistToEdit, therapists, setTherapists})
 {
     const handleClose = () => setModal(false);
     const [isAvailable, setIsAvailable] = useState(therapistToEdit.availability);
@@ -109,20 +109,30 @@ function NewTherapistModal({modal, setModal, isNewTherapist, therapistToEdit, se
                         let method = "PATCH";
                         if(isNewTherapist)
                         {
-                            console.log("Set method to post rather than patch");
+                            method="POST";
                         }
                         fetch(
                             'http://localhost:3000/therapists/',
                             {
                                 method,
-                                body:therapistToEdit
+                                headers: {
+                                    'Content-Type':'application/json',
+                                    'Accept':'application/json'
+                                },
+                                body:JSON.stringify(therapistToEdit)
                             }
                         )
                             .then(res => res.json())
                             .then(data => {
-                                console.log(data);
+                                therapistToEdit.idTherapist = data.insertId;
+                                if(isNewTherapist)
+                                {
+                                    therapists.push(therapistToEdit);
+                                }
+                                setTherapists(therapists);
+                                setTherapistToEdit(therapistToEdit);
+                                handleClose();
                             });
-                        console.log(therapistToEdit);
                     }}>
                         Save Changes
                     </Button>
@@ -186,8 +196,17 @@ function Therapists()
     });
 
     return(<>
-        <NewTherapistModal modal={modal} setModal={setModal} isNewTherapist={isNewTherapist} therapistToEdit={therapistToEdit} setTherapistToEdit={setTherapistToEdit}/>
+        <NewTherapistModal modal={modal} setModal={setModal} isNewTherapist={isNewTherapist} therapistToEdit={therapistToEdit} setTherapistToEdit={setTherapistToEdit} therapists={therapists} setTherapists={setTherapists}/>
         <h2 className="text-center">Therapists</h2>
+        <div className="container text-center">
+            <Button variant="primary" onClick={()=>{
+                setIsNewTherapist(true);
+                setTherapistToEdit({title:"", name:"", location:"", availability:0, yearsOfPractice:"", email:""});
+                setModal(true);
+            }}>
+                Add new therapist
+            </Button>
+        </div>
         <div className="container">
             <div className="row firstRow">
                 <div className="col">Therapist</div>

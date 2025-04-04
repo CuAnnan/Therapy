@@ -4,20 +4,20 @@ import express from 'express';
 const router = express.Router();
 const controller = new SessionController();
 
-router.get('/', (req, res, next)=>{
-    controller.getAllSessions(req, res).catch((err) => Promise.reject(next()));
+router.get('/', async (req, res, next)=>{
+    await controller.getAllSessions(req, res);
 });
 
-router.post('/', (req, res, next)=>{
-    controller.addSession(req, res).catch((err) => Promise.reject(next()));
+router.post('/', async (req, res, next)=>{
+    await controller.addSession(req, res);
 });
 
-router.delete('/:idSession', (req, res, next)=>{
-    controller.deleteSession(req, res).catch((err) => Promise.reject(next()));
+router.delete('/:idSession', async (req, res, next)=>{
+    await controller.deleteSession(req, res);
 });
 
-router.patch("/", (req, res, next)=>{
-    controller.updateSession(req, res).catch((err) => Promise.reject(next()));
+router.patch("/",async (req, res, next)=>{
+    await controller.updateSession(req, res);
 });
 
 export default router;

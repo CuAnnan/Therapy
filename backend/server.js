@@ -27,6 +27,24 @@ app.use('/sessions', sessionRouter);
 
 app.set("port", port);
 
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+    res.status(404).send("File not found")
+});
+
+
+
+// error handler
+app.use(function(err, req, res, next) {
+    // set locals, only providing error in development
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+    console.log(err);
+    // render the error page
+    res.status(500).render('serverError');
+});
+
+
 const server = http.createServer(app);
 server.listen(port);
 server.on('error', (error)=>{

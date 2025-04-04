@@ -4,24 +4,24 @@ import express from 'express';
 const router = express.Router();
 const controller = TherapistController.getInstance();
 
-router.get('/', (req, res, next)=>{
-   controller.getAllTherapists(req, res).catch(((err) => Promise.reject(next())));
+router.get('/', async (req, res, next)=>{
+   await controller.getAllTherapists(req, res);
 });
 
-router.get('/:name/:idTherapist', (req, res, next)=>{
-   controller.getTherapistById(req, res).catch(((err) => Promise.reject(next())));
+router.get('/:name/:idTherapist', async (req, res, next)=>{
+   await controller.getTherapistById(req, res);
 });
 
-router.post('/', (req, res, next)=>{
-   controller.addTherapist(req, res).catch(((err) =>Promise.reject(next())));
+router.post('/', async (req, res, next)=>{
+   await controller.addTherapist(req, res);
 });
 
-router.patch('/', (req, res, next)=>{
-   controller.updateTherapist(req, res).catch(((err) => Promise.reject(next())));
+router.patch('/', async (req, res, next)=>{
+   await controller.updateTherapist(req, res);
 });
 
-router.delete('/:idTherapist', (req, res, next)=>{
-   controller.deleteTherapist(req, res).catch(((err) => Promise.reject(next())));
+router.delete('/:idTherapist', async (req, res, next)=>{
+   await controller.deleteTherapist(req, res);
 });
 
 export default router;
