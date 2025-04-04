@@ -7,9 +7,11 @@ class TherapistController extends Controller
     async getAllTherapists(req, res)
     {
         this.query("SELECT * FROM therapist")
-            .then((query)=>{
-                res.json(query.results);
-            }).catch(this.sendErrorResponse);
+        .then((query)=>{
+            res.json(query.results);
+        }).catch((e)=>{
+            this.sendErrorResponse(res, e.message);
+        });
     }
 
     async getTherapistById(req, res)
@@ -19,7 +21,9 @@ class TherapistController extends Controller
             [req.params.idTherapist, req.params.name]
         ).then((query)=>{
             res.json(query.results[0]);
-        }).catch(this.sendErrorResponse);
+        }).catch((e)=>{
+            this.sendErrorResponse(res, e.message);
+        });
     }
 
     async addTherapist(req, res)
@@ -36,7 +40,9 @@ class TherapistController extends Controller
                         ],
         ).then((query)=>{
             res.json(query.results);
-        }).catch(this.sendErrorResponse);
+        }).catch((e)=>{
+            this.sendErrorResponse(res, e.message);
+        });
     }
 
     async updateTherapist(req, res)
@@ -65,7 +71,9 @@ class TherapistController extends Controller
             updateFields
         ).then((query)=>{
            res.json(query.results);
-        }).catch(this.sendErrorResponse);
+        }).catch((e)=>{
+            this.sendErrorResponse(res, e.message);
+        });
     }
 
     async deleteTherapist(req, res)
@@ -75,7 +83,9 @@ class TherapistController extends Controller
             [req.params.idTherapist]
         ).then((query)=>{
             res.json(query.results);
-        }).catch(this.sendErrorResponse);
+        }).catch((e)=>{
+            this.sendErrorResponse(res, e.message);
+        });
     }
 
     static getInstance()

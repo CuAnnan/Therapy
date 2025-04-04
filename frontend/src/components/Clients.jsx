@@ -1,17 +1,7 @@
 import {useEffect, useState} from "react";
 import {Button, Modal, Row, Col, Form} from 'react-bootstrap';
+import FormField from './FormField.jsx';
 
-
-function ClientField({client, fieldName})
-{
-    const [field, setField] = useState(client[fieldName]?client[fieldName]:"");
-
-    return (<Form.Control required value={field} onChange={(e)=>{
-        let value = e.target.value;
-        setField(value);
-        client[fieldName] = value;
-    }}/>);
-}
 
 function ClientModal({modal, setModal, isNewClient, clientToEdit, setClientToEdit, clients, setClients})
 {
@@ -30,7 +20,7 @@ function ClientModal({modal, setModal, isNewClient, clientToEdit, setClientToEdi
                                 Name
                             </Form.Label>
                             <Col sm={10}>
-                                <ClientField fieldName="name" client={clientToEdit}/>
+                                <FormField fieldName="name" object={clientToEdit}/>
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
@@ -38,7 +28,7 @@ function ClientModal({modal, setModal, isNewClient, clientToEdit, setClientToEdi
                                 Email
                             </Form.Label>
                             <Col sm={10}>
-                                <ClientField fieldName="email" client={clientToEdit}/>
+                                <FormField fieldName="email" object={clientToEdit}/>
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" controlId="formHorizontalLocation">
@@ -46,7 +36,7 @@ function ClientModal({modal, setModal, isNewClient, clientToEdit, setClientToEdi
                                 Phone Number
                             </Form.Label>
                             <Col sm={10}>
-                                <ClientField fieldName="phoneNumber" client={clientToEdit}/>
+                                <FormField fieldName="phoneNumber" object={clientToEdit}/>
                             </Col>
                         </Form.Group>
                     </Form>
@@ -154,8 +144,6 @@ function Clients()
             }}>
                 Add new client
             </Button>
-        </div>
-        <div className="container text-center">
         </div>
         <div className="container">
             <Row className="firstRow">

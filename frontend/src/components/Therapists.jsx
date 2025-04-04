@@ -1,6 +1,8 @@
 import {useState, useEffect} from 'react';
 import {Button, Modal, Row, Col, Form} from 'react-bootstrap';
 
+import FormField from './FormField.jsx';
+
 function TherapistField({therapist, fieldName, isNumber})
 {
     const [field, setField] = useState(therapist?therapist[fieldName]:"");
@@ -34,7 +36,7 @@ function NewTherapistModal({modal, setModal, isNewTherapist, therapistToEdit, se
                                 Title
                             </Form.Label>
                             <Col sm={10}>
-                                <TherapistField fieldName="title" therapist={therapistToEdit}/>
+                                <FormField fieldName="title" object={therapistToEdit}/>
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" controlId="formHorizontalName">
@@ -42,7 +44,7 @@ function NewTherapistModal({modal, setModal, isNewTherapist, therapistToEdit, se
                                 Name
                             </Form.Label>
                             <Col sm={10}>
-                                <TherapistField fieldName="name" therapist={therapistToEdit}/>
+                                <FormField fieldName="name" object={therapistToEdit}/>
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" controlId="formHorizontalEmail">
@@ -58,7 +60,7 @@ function NewTherapistModal({modal, setModal, isNewTherapist, therapistToEdit, se
                                 Location
                             </Form.Label>
                             <Col sm={10}>
-                                <TherapistField fieldName="location" therapist={therapistToEdit}/>
+                                <FormField fieldName="location" object={therapistToEdit}/>
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" controlId="formHorizontalYearsOfPractice">
@@ -66,7 +68,7 @@ function NewTherapistModal({modal, setModal, isNewTherapist, therapistToEdit, se
                                 Years of Practice
                             </Form.Label>
                             <Col sm={10}>
-                                <TherapistField fieldName="yearsOfPractice" therapist={therapistToEdit} isNumber={true}/>
+                                <FormField fieldName="yearsOfPractice" object={therapistToEdit} isNumber={true}/>
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" controlId="formHorizontalAvailable">

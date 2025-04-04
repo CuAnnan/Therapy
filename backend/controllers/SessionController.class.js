@@ -11,7 +11,9 @@ class SessionController extends Controller
         ).then((query)=>{
             res.json(query.results);
         })
-        .catch(this.sendErrorResponse);
+        .catch((e)=>{
+            this.sendErrorResponse(res, e.message);
+        });
     }
 
     async addSession(req, res)
@@ -21,7 +23,9 @@ class SessionController extends Controller
             [req.body.idClient, req.body.idTherapist, new Date(req.body.date), req.body.length, req.body.frequency]
         ).then((query)=>{
             res.json(query.results);
-        }).catch(this.sendErrorResponse);
+        }).catch((e)=>{
+            this.sendErrorResponse(res, e.message);
+        });
     }
 
     async deleteSession(req, res)
@@ -31,7 +35,9 @@ class SessionController extends Controller
             [req.params.idSession]
         ).then((query)=>{
             res.json(query.results);
-        }).catch(this.sendErrorResponse);
+        }).catch((e)=>{
+            this.sendErrorResponse(res, e.message);
+        });
     }
 
     async getSessionById(req, res)
@@ -49,10 +55,8 @@ class SessionController extends Controller
         )
         .then((query)=>{
             res.json(query.results[0])
-        }).catch((err)=>{
-            console.error(err);
-            res.status(500);
-            res.json({error:"Query string failed"});
+        }).catch((e)=>{
+            this.sendErrorResponse(res, e.message);
         });
     }
 
@@ -77,10 +81,8 @@ class SessionController extends Controller
             updateFields
         ).then((query)=>{
             res.json(query.results);
-        }).catch((err)=>{
-            console.error(err);
-            res.status(500);
-            res.json({error:"Query string failed"});
+        }).catch((e)=>{
+            this.sendErrorResponse(res, e.message);
         });
     }
 

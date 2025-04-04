@@ -10,7 +10,9 @@ class ClientController extends Controller
             "SELECT * from client"
         ).then((query) => {
             res.json(query.results)
-        }).catch(this.sendErrorResponse);
+        }).catch((e)=>{
+            this.sendErrorResponse(res, e.message);
+        });
     }
 
     async getClientById(req, res)
@@ -20,7 +22,9 @@ class ClientController extends Controller
             [req.params.idClient, req.params.name]
         ).then((query) => {
            res.json(query.results[0])
-        }).catch(this.sendErrorResponse);
+        }).catch((e)=>{
+            this.sendErrorResponse(res, e.message);
+        });
     }
 
     async addClient(req, res)
@@ -30,7 +34,9 @@ class ClientController extends Controller
             [req.body.name, req.body.email, req.body.phoneNumber]
         ).then((query) => {
             res.json(query.results);
-        }).catch(this.sendErrorResponse);
+        }).catch((e)=>{
+            this.sendErrorResponse(res, e.message);
+        });
     }
 
     async updateClient(req, res)
@@ -58,7 +64,9 @@ class ClientController extends Controller
             updateFields
         ).then((query)=>{
             res.json(query.results);
-        }).catch(this.sendErrorResponse);
+        }).catch((e)=>{
+            this.sendErrorResponse(res, e.message);
+        });
     }
 
     async deleteClient(req, res)
@@ -68,7 +76,9 @@ class ClientController extends Controller
             [req.params.idClient]
         ).then((query)=>{
             res.json(query.results);
-        }).catch(this.sendErrorResponse);
+        }).catch((e)=>{
+            this.sendErrorResponse(res, e.message);
+        });
     }
 
     static getInstance()
