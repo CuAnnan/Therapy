@@ -3,26 +3,11 @@ import {Button, Modal, Row, Col, Form} from 'react-bootstrap';
 
 import FormField from './FormField.jsx';
 
-function TherapistField({therapist, fieldName, isNumber})
-{
-    const [field, setField] = useState(therapist?therapist[fieldName]:"");
-
-    return (<Form.Control required value={field} onChange={(e)=>{
-        let value = e.target.value;
-        if(isNumber)
-        {
-            value = parseInt(value);
-        }
-        setField(value);
-        therapist[fieldName] = value;
-    }}/>);
-}
-
-
 function NewTherapistModal({modal, setModal, isNewTherapist, therapistToEdit, setTherapistToEdit, therapists, setTherapists})
 {
     const handleClose = () => setModal(false);
     const [isAvailable, setIsAvailable] = useState(therapistToEdit.availability);
+
     return (
         <>
             <Modal show={modal} onHide={handleClose}>
@@ -52,7 +37,7 @@ function NewTherapistModal({modal, setModal, isNewTherapist, therapistToEdit, se
                                 Email
                             </Form.Label>
                             <Col sm={10}>
-                                <TherapistField fieldName="email" therapist={therapistToEdit}/>
+                                <FormField fieldName="email" object={therapistToEdit}/>
                             </Col>
                         </Form.Group>
                         <Form.Group as={Row} className="mb-3" controlId="formHorizontalLocation">
@@ -126,12 +111,12 @@ function NewTherapistModal({modal, setModal, isNewTherapist, therapistToEdit, se
                         )
                             .then(res => res.json())
                             .then(data => {
-                                therapistToEdit.idTherapist = data.insertId;
                                 if(isNewTherapist)
                                 {
+                                    therapistToEdit.idTherapist = data.insertId;
                                     therapists.push(therapistToEdit);
+                                    setTherapists(therapists);
                                 }
-                                setTherapists(therapists);
                                 setTherapistToEdit(therapistToEdit);
                                 handleClose();
                             });

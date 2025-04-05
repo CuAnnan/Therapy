@@ -64,12 +64,12 @@ function ClientModal({modal, setModal, isNewClient, clientToEdit, setClientToEdi
                         )
                             .then(res => res.json())
                             .then(data => {
-                                clientToEdit.idClient = data.insertId;
                                 if(isNewClient)
                                 {
+                                    clientToEdit.idClient = data.insertId;
                                     clients.push(clientToEdit);
+                                    setClients(clients);
                                 }
-                                setClients(clients);
                                 setClientToEdit(clientToEdit);
                                 handleClose();
                             });

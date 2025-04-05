@@ -1,12 +1,14 @@
 import Controller from './Controller.class.js';
+import ClientController from "./ClientController.class.js";
+import TherapistController from "./TherapistController.class.js";
 
 class SessionController extends Controller
 {
     static instance;
 
-    async getAllSessions(req, res)
+    async getAllSessions()
     {
-        this.query(
+        const query = await this.query(
             "SELECT " +
                             "s.idSession, s.date, s.length, s.frequency," +
                             "c.idClient, c.name as client, t.idTherapist, t.name as therapist " +
@@ -14,11 +16,18 @@ class SessionController extends Controller
                             "session s " +
                             "LEFT JOIN client c USING (idClient) " +
                             "LEFT JOIN therapist t USING (idTherapist)"
-        ).then((query)=>{
-            res.json(query.results);
-        })
-        .catch((e)=>{
-            this.sendErrorResponse(res, e.message);
+        );
+        return query.results;
+    }
+
+    async getAllSessionData(req, res)
+    {
+        const clientController = ClientController.getInstance();
+        const therapistController = TherapistController.getInstance()
+        res.json({
+            clients:await clientController.getClientIdsAndNames(),
+            therapists:await therapistController.getTherapistIdAndNames(),
+            sessions:await this.getAllSessions(),
         });
     }
 

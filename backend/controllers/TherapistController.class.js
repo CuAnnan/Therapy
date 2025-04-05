@@ -88,20 +88,17 @@ class TherapistController extends Controller
         });
     }
 
-    async getTherapistIdAndNames(req, res)
+    async getTherapistIdAndNames()
     {
-        this.query(
+        let query = await this.query(
             "SELECT idTherapist, name FROM therapist"
-        ).then((query)=>{
-            let map = {};
-            for(let result of query.results)
-            {
-                map[result.idTherapist] = result.name;
-            }
-            res.json(map);
-        }).catch((e)=>{
-            this.sendErrorResponse(res, e.message);
-        });
+        );
+        let map = {};
+        for(let result of query.results)
+        {
+            map[result.idTherapist] = result.name;
+        }
+        return map;
     }
 
     static getInstance()

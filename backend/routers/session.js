@@ -5,7 +5,7 @@ const router = express.Router();
 const controller = new SessionController();
 
 router.get('/', async (req, res, next)=>{
-    await controller.getAllSessions(req, res);
+    await controller.getAllSessionData(req, res);
 });
 
 router.post('/', async (req, res, next)=>{
@@ -15,6 +15,8 @@ router.post('/', async (req, res, next)=>{
 router.delete('/:idSession', async (req, res, next)=>{
     await controller.deleteSession(req, res);
 });
+
+
 
 router.patch("/",async (req, res, next)=>{
     await controller.updateSession(req, res);
