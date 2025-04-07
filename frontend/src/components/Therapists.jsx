@@ -3,6 +3,36 @@ import {Button, Modal, Row, Col, Form} from 'react-bootstrap';
 
 import FormField from './FormField.jsx';
 
+function AvailableRadio({therapistToEdit})
+{
+    const [isAvailable, setIsAvailable] = useState(therapistToEdit.availability);
+
+    return (<>
+        <Form.Check
+            type="radio"
+            label="Yes"
+            name="therapistAvailable"
+            id="therapistAvailableYes"
+            checked={isAvailable===1}
+            onChange={(e)=>{
+                setIsAvailable(1);
+                therapistToEdit.availability = 1;
+            }}
+        />
+        <Form.Check
+            type="radio"
+            label="No"
+            name="therapistAvailable"
+            id="therapistAvailableNo"
+            value="0"
+            checked={isAvailable!==1}
+            onChange={(e)=>{
+                setIsAvailable(0);
+                therapistToEdit.availability = 0;
+            }}
+        /></>);
+}
+
 function NewTherapistModal({modal, setModal, isNewTherapist, therapistToEdit, setTherapistToEdit, therapists, setTherapists})
 {
     const handleClose = () => setModal(false);
@@ -61,29 +91,7 @@ function NewTherapistModal({modal, setModal, isNewTherapist, therapistToEdit, se
                                 Available
                             </Form.Label>
                             <Col sm={10}>
-                                <Form.Check
-                                    type="radio"
-                                    label="Yes"
-                                    name="therapistAvailable"
-                                    id="therapistAvailableYes"
-                                    checked={isAvailable===1}
-                                    onChange={(e)=>{
-                                        setIsAvailable(1);
-                                        therapistToEdit.availability = 1;
-                                    }}
-                                />
-                                <Form.Check
-                                    type="radio"
-                                    label="No"
-                                    name="therapistAvailable"
-                                    id="therapistAvailableNo"
-                                    value="0"
-                                    checked={isAvailable!==1}
-                                    onChange={(e)=>{
-                                        setIsAvailable(0);
-                                        therapistToEdit.availability = 0;
-                                    }}
-                                />
+                                <AvailableRadio therapistToEdit={therapistToEdit}/>
                             </Col>
                         </Form.Group>
                     </Form>
