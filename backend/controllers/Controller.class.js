@@ -9,11 +9,13 @@ class Controller
     static instance;
     static inTransaction;
 
+    // instantiating the static database connection
     static {
         this.db = mysql.createConnection(conf.db);
         this.db.connect();
     }
 
+    // ensure that each controller class has a static getInstance method
     static getInstance()
     {
         throw new Error("getInstance method not implemented.");
@@ -31,7 +33,6 @@ class Controller
                 }
                 if(err)
                 {
-                    console.log("This is the problem");
                     console.log(err);
                     reject(err);
                 }
