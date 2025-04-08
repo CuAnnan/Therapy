@@ -10,7 +10,7 @@ class SessionController extends Controller
     {
         const query = await this.query(
             "SELECT " +
-                            "s.idSession, s.date, s.length, s.frequency," +
+                            "s.idSession, s.date, s.length, s.frequency, s.notes, " +
                             "c.idClient, c.name as client, t.idTherapist, t.name as therapist " +
                         "FROM " +
                             "session s " +
@@ -34,8 +34,8 @@ class SessionController extends Controller
     async addSession(req, res)
     {
         this.query(
-            "INSERT INTO session (idClient, idTherapist, date, length, frequency) VALUES (?, ?, ?, ?, ?)",
-            [req.body.idClient, req.body.idTherapist, new Date(req.body.date), req.body.length, req.body.frequency]
+            "INSERT INTO session (idClient, idTherapist, date, length, frequency, notes) VALUES (?, ?, ?, ?, ?, ?)",
+            [req.body.idClient, req.body.idTherapist, new Date(req.body.date), req.body.length, req.body.frequency, req.body.notes]
         ).then((query)=>{
             res.json(query.results);
         }).catch((e)=>{
@@ -77,7 +77,7 @@ class SessionController extends Controller
 
     async updateSession(req, res)
     {
-        let fields = ["idClient", "idTherapist", "date", "length", "frequency"];
+        let fields = ["idClient", "idTherapist", "date", "length", "frequency", "notes"];
         let updateSQL = [];
         let updateFields = [];
 

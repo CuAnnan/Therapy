@@ -37,7 +37,6 @@ function NewTherapistModal({modal, setModal, isNewTherapist, therapistToEdit, se
 {
     const handleClose = () => setModal(false);
     const [isAvailable, setIsAvailable] = useState(therapistToEdit.availability);
-
     return (
         <>
             <Modal show={modal} onHide={handleClose}>

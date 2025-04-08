@@ -45,6 +45,17 @@ function SessionFrequency({object, setObject})
     </Form.Select>);
 }
 
+function SessionNotes({object, setObject})
+{
+    const[notes, setNotes] = useState(object.notes);
+
+    return (<Form.Control as="textarea" value={notes} onChange={(e)=>{
+        setNotes(e.target.value);
+        object.notes = e.target.value;
+        setObject(object);
+    }}></Form.Control>);
+}
+
 function SessionModal({modal, setModal, isNewSession, sessionToEdit, sessions, setSessions, therapists, clients, setSessionToEdit})
 {
     const handleClose = () => setModal(false);
@@ -91,6 +102,12 @@ function SessionModal({modal, setModal, isNewSession, sessionToEdit, sessions, s
                             </Form.Label>
                             <Col>
                                 <SessionFrequency object={sessionToEdit} setObject={setSessionToEdit}/>
+                            </Col>
+                        </Form.Group>
+                        <Form.Group as={Row} className="mb-3" controlId="formHorizontalDuration">
+                            <Form.Label column={true} sm={1}>Notes:</Form.Label>
+                            <Col>
+                                <SessionNotes object={sessionToEdit} setObject={setSessionToEdit}/>
                             </Col>
                         </Form.Group>
                     </Form>
