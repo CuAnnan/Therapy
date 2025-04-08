@@ -25,6 +25,11 @@ app.use('/client', clientRouter);
 app.use('/session', sessionRouter);
 app.use('/sessions', sessionRouter);
 
+app.get("/", (req, res)=>{
+    console.log(req);
+    res.json(req.body);
+});
+
 app.set("port", port);
 
 // catch 404 and forward to error handler
