@@ -26,6 +26,7 @@ app.use('/session', sessionRouter);
 app.use('/sessions', sessionRouter);
 
 app.get("/", (req, res)=>{
+    console.log(req.body);
     res.json(req.body);
 });
 
